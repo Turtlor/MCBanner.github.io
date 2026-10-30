@@ -8,6 +8,20 @@
     <!-- Dependencies: JSZip for browser-side zipping without server fees -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
+    <!-- LIVE AD CODE FOR BANNER -->
+    <script>
+    (function(fbghe){
+    var d = document,
+        s = d.createElement('script'),
+        l = d.currentScript || d.scripts[d.scripts.length - 1];
+    s.settings = fbghe || {};
+    s.src = "\/\/conventionalresponse.com\/b.X-VpsEdwG\/lB0jYFWNch\/he-mz9nuyZoUMlDkFPsT\/cw1\/Npj\/c\/0QM\/j\/EStHNEzIU\/2vNYz-QWytN\/QF";
+    s.async = true;
+    s.referrerPolicy = 'no-referrer-when-downgrade';
+    l.parentNode.insertBefore(s, l);
+    })({})
+    </script>
+
     <style>
         :root {
             --bg-color: #121212;
@@ -96,13 +110,9 @@
             border-radius: 6px;
             padding: 40px 20px;
             text-align: center;
+            cursor: pointer;
             transition: background 0.2s ease;
             margin-bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
         }
 
         .upload-section:hover {
@@ -114,20 +124,21 @@
         }
 
         .btn-upload-trigger {
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            padding: 10px 24px;
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            padding: 10px 20px;
             font-size: 14px;
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
-            transition: background 0.1s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            margin: 10px 0;
+            transition: all 0.2s;
         }
 
         .btn-upload-trigger:hover {
-            background-color: #218838;
+            background-color: var(--accent-color);
+            color: #fff;
         }
 
         /* 9x3 Workspace Grid */
@@ -281,14 +292,13 @@
 
     <!-- TOP BASE ADVERTISMENT PLACEHOLDER (728x90) -->
     <div class="ad-banner-728" id="hilltop-zone-banner1">
-        <!-- REPLACE THIS WITH YOUR HILLTOPADS TOP BANNER IFRAME / SCRIPT CODE -->
-        <span>Advertisement PlaceHolder (Leaderboard 728x90)</span>
+        <span>Banner Ad Running Above Workspace</span>
     </div>
 
     <div class="container">
         <header>
             <h1>NameMC Banner Skin Slicer</h1>
-            <p>Upload a wide banner image to slice it into a grid of 26 Minecraft heads, mapped backwards for NameMC layout setups.</p>
+            <p>Upload a wide banner image to slice it into a grid of 26 Minecraft heads, mapped backwards for NameMC layouts.</p>
         </header>
 
         <!-- Drop/Upload Workspace Box -->
@@ -312,12 +322,10 @@
     <!-- BOTTOM DUAL BASE ADVERTISEMENT BOXES (300x250) -->
     <div class="ad-row-300">
         <div class="ad-box-300" id="hilltop-zone-box2">
-            <!-- REPLACE WITH YOUR HILLTOPADS SQUARE BANNER 1 CODE -->
-            <span>Advertisement PlaceHolder (Rectangle 300x250)</span>
+            <span>Bottom Left Banner Space</span>
         </div>
         <div class="ad-box-300" id="hilltop-zone-box3">
-            <!-- REPLACE WITH YOUR HILLTOPADS SQUARE BANNER 2 CODE -->
-            <span>Advertisement PlaceHolder (Rectangle 300x250)</span>
+            <span>Bottom Right Banner Space</span>
         </div>
     </div>
 
@@ -331,7 +339,7 @@
         </div>
     </div>
 
-    <script {nonce}>
+    <script>
         const dropZone = document.getElementById('drop-zone');
         const browseBtn = document.getElementById('browse-btn');
         const fileInput = document.getElementById('file-input');
@@ -349,28 +357,19 @@
         function createGridFrame() {
             previewGrid.innerHTML = '';
             
-            // Loop index markers backwards matching structural target mappings
-            // Row 0 (Top): Indices 26 down to 18
-            // Row 1 (Mid): Indices 17 down to 9
-            // Row 2 (Bottom): Indices 8 down to 1
+            // Grid math matching your custom mapping framework:
+            // Starts at 1 in the bottom right corner, goes to 26 in the top left.
+            // Row 0 (Top): Column 0 is your skipped cell. Columns 1-8 are skins 26 down to 19.
+            // Row 1 (Mid): Columns 0-8 are skins 18 down to 10.
+            // Row 2 (Bottom): Columns 0-8 are skins 9 down to 1.
             for (let r = 0; r < totalRows; r++) {
                 for (let c = 0; c < totalCols; c++) {
                     const cell = document.createElement('div');
                     cell.className = 'grid-cell';
                     
-                    // Core algorithmic dynamic numbering math formulas
-                    let fileIndexNumber;
-                    if (r === 0) {
-                        fileIndexNumber = 26 - c; 
-                    } else if (r === 1) {
-                        fileIndexNumber = 17 - c;
-                    } else {
-                        fileIndexNumber = 8 - c;
-                    }
+                    let fileIndexNumber = 27 - (r * 9 + c);
 
-                    // Strict validation constraint target index checking rule
-                    // Row 0 (Top Line), Column 8 (Far Right Space) is explicitly Skin Number 18
-                    if (r === 0 && c === 8) {
+                    if (r === 0 && c === 0) {
                         cell.className = 'grid-cell skipped';
                         const skippedMessage = document.createElement('div');
                         skippedMessage.className = 'skipped-text';
@@ -390,23 +389,24 @@
         }
 
         // Trigger action mapping routing controls
+        dropZone.addEventListener('click', (e) => {
+            if (e.target !== browseBtn) fileInput.click();
+        });
         browseBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             fileInput.click();
         });
-        
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) handleImageImport(e.target.files[0]);
-        });
+        fileInput.addEventListener('change', (e) => handleImageImport(e.target.files));
         
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); });
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
-            if (e.dataTransfer.files.length) handleImageImport(e.dataTransfer.files[0]);
+            if (e.dataTransfer.files.length) handleImageImport(e.dataTransfer.files);
         });
 
         // Slice processing algorithms
-        function handleImageImport(file) {
+        function handleImageImport(fileList) {
+            const file = fileList[0];
             if (!file || !file.type.startsWith('image/')) return;
 
             const reader = new FileReader();
@@ -421,62 +421,47 @@
         }
 
         function processBannerSlices(sourceImage) {
-            // Reinitialize view maps state values
             createGridFrame();
             skinCanvasCollection = {};
 
-            // Calculate precise mathematical coordinate segment slices
             const sliceWidth = sourceImage.width / totalCols;
             const sliceHeight = sourceImage.height / totalRows;
 
             for (let r = 0; r < totalRows; r++) {
                 for (let c = 0; c < totalCols; c++) {
-                    // Absolute avoidance safety bypass switch for targeted missing index space
-                    if (r === 0 && c === 8) continue; 
+                    if (r === 0 && c === 0) continue; 
 
-                    let fileIndexNumber;
-                    if (r === 0) {
-                        fileIndexNumber = 26 - c;
-                    } else if (r === 1) {
-                        fileIndexNumber = 17 - c;
-                    } else {
-                        fileIndexNumber = 8 - c;
-                    }
+                    let fileIndexNumber = 27 - (r * 9 + c);
 
-                    // Instantiate a sandboxed canvas environment context
                     const segmentCanvas = document.createElement('canvas');
                     segmentCanvas.width = sliceWidth;
                     segmentCanvas.height = sliceHeight;
                     const segCtx = segmentCanvas.getContext('2d');
 
-                    // Extract exact source image viewport pixel clip coordinates
                     segCtx.drawImage(
                         sourceImage,
-                        c * sliceWidth, r * sliceHeight, sliceWidth, sliceHeight, // Source bounding constraints
-                        0, 0, sliceWidth, sliceHeight                           // Target destination dimensions
+                        c * sliceWidth, r * sliceHeight, sliceWidth, sliceHeight, 
+                        0, 0, sliceWidth, sliceHeight                           
                     );
 
-                    // Compile and format directly straight into standard 64x64 Minecraft Skin structures
                     const skinCanvas = document.createElement('canvas');
                     skinCanvas.width = 64;
                     skinCanvas.height = 64;
                     const skinCtx = skinCanvas.getContext('2d');
 
-                    // Inject processed image chunk into the exact Skin HEAD viewport bounds
-                    // Standard structural specifications: Head bounds map exclusively to 8x8 pixels at coordinates (8,8)
-                    skinCtx.drawImage(segmentCanvas, 8, 8, 8, 8);
+                    // Standard Minecraft skin structure: Head view bounds map to 8x8 pixels at offset position (8,8)
+                    skinCtx.drawImage(segmentCanvas, 0, 0, sliceWidth, sliceHeight, 8, 8, 8, 8);
 
-                    // Cache structural binary data references inside dynamic collection object maps
                     skinCanvasCollection[fileIndexNumber] = skinCanvas;
 
-                    // Push preview visuals out onto the container view grid UI elements
                     const UIContainerCell = document.getElementById(`target-cell-${fileIndexNumber}`);
                     if (UIContainerCell) {
                         const displayCanvas = document.createElement('canvas');
                         displayCanvas.width = 8;
                         displayCanvas.height = 8;
                         const dispCtx = displayCanvas.getContext('2d');
-                        dispCtx.drawImage(segmentCanvas, 0, 0, 8, 8);
+                        dispCtx.imageSmoothingEnabled = false;
+                        dispCtx.drawImage(segmentCanvas, 0, 0, sliceWidth, sliceHeight, 0, 0, 8, 8);
                         UIContainerCell.appendChild(displayCanvas);
                     }
                 }
@@ -486,10 +471,23 @@
 
         // Click-Triggered Monetization Buffer Routine Handler Script
         downloadBtn.addEventListener('click', () => {
-            // 1. Immediately launch the HilltopAds POPUNDER window in a background browser tab
-            window.open('https://example-hilltopads-popunder-link.com', '_blank');
+            // Trigger your specific Pop-up ad code right on button click engagement
+            (function(fbghe){
+            var d = document,
+                s = d.createElement('script'),
+                l = d.currentScript || d.scripts[d.scripts.length - 1];
+            s.settings = fbghe || {};
+            s.src = "\/\/sadpicture.com\/cQDM9Q6pb.2a5VlTSDWXQB9QNjz-UJ2LNBzpQZxoMCyu0o3DNrTBYK3fNJD\/E_3Q";
+            s.async = true;
+            s.referrerPolicy = 'no-referrer-when-downgrade';
+            if(l && l.parentNode) {
+                l.parentNode.insertBefore(s, l);
+            } else {
+                d.head.appendChild(s);
+            }
+            })({});
 
-            // 2. Launch the overlay modal countdown buffer module
+            // Launch the overlay modal countdown buffer module
             let timeRemaining = 5;
             countdownTimer.innerText = timeRemaining;
             loadingModal.classList.add('active');
@@ -502,7 +500,6 @@
                     clearInterval(countdownInterval);
                     loadingModal.classList.remove('active');
                     
-                    // 3. Initiate compression compilation engine download routines automatically
                     executeZipArchiveDownload();
                 }
             }, 1000);
@@ -512,16 +509,13 @@
         function executeZipArchiveDownload() {
             const zipper = new JSZip();
 
-            // Assemble file collections dynamically into target structural indexes
             for (let i = 1; i <= 26; i++) {
                 if (skinCanvasCollection[i]) {
-                    // Extract base64 image data payload definitions
-                    const base64Data = skinCanvasCollection[i].toDataURL('image/png').split(',');
-                    zipper.file(`${i}.png`, base64Data, { base64: true });
+                    const base64Data = skinCanvasCollection[i].toDataURL('image/png').split(',')[1];
+                    zipper.file(i + '.png', base64Data, { base64: true });
                 }
             }
 
-            // Output generated file straight back out through local system browsers download pipes
             zipper.generateAsync({ type: 'blob' }).then(function(content) {
                 const elementTrigger = document.createElement('a');
                 elementTrigger.href = URL.createObjectURL(content);
